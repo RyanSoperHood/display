@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-store" />
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  overflow: hidden;
+}
+img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain; /* change to cover if desired */
+}
+</style>
+</head>
+<body>
+<img id="art" src="Artboard.png">
+<script>
+function refreshImage() {
+  const img = document.getElementById("art");
+  img.src = "Artboard.png?ts=" + new Date().getTime();
+}
+setInterval(refreshImage, 600000); // refresh every 10 minutes
+</script>
+</body>
+</html>
