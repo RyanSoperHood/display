@@ -1,36 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-<!-- Proper mobile scaling -->
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- Prevent caching -->
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
 
-<!-- Prevent caching -->
-<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+  <title>Display</title>
 
-<title>Display</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      height: 100%;
+      /* Allow the tiny scroll needed to collapse iOS Safari UI */
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
 
-<style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: black;
-    overflow: hidden;
-    height: 100%;
-  }
+    /* Hide scrollbars (best-effort across engines) */
+    body::-webkit-scrollbar { width: 0; height: 0; }
+    body { scrollbar-width: none; }
 
-  img {
-    width: 100vw;
-    height: 100vh;
-    object-fit: contain; /* Change to 'cover' if you want edge-to-edge crop */
-    display: block;
-  }
-</style>
+    /* Pin the image so it NEVER moves even if we scroll 1px */
+    #art {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain; /* change to cover if you want edge-to-edge crop */
+      display: block;
+      background: #000;
+    }
+
+    /* Creates 1px of scrollable content without being visible */
+    #spacer {
+      position: absolute;
+      top: 100vh;
+      height: 1px;
+      width: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
 </head>
 
+<body>
+  <img id="art" src="Artboard.png" alt="Display Image" />
+  <div id="spacer"></div>
+
+  <script>
+    // Refresh image every 5 minutes
+    const refreshInterval = 300000;
+
+    function refreshImage() {
+      const img = document.getElementById("art");
+      img.src = "Artboard.png?ts=" + Date.now();
+    }
+    setInterval(refreshImage, refreshInterval);
+
+    // iPad Safari UI collapse nudge
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        window.scrollTo(0, 1);
+        setTimeout(() => window.scrollTo(0, 0), 50);
+      }, 300);
+    });
+  </script>
+</body>
+</html>
 <body>
 
 <img id="art" src="Artboard.png" alt="Display Image">
