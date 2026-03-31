@@ -3,14 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-
   <!-- Prevent caching -->
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-
   <title>Display</title>
-
   <style>
     html, body {
       margin: 0;
@@ -19,7 +16,6 @@
       height: 100%;
       overflow: hidden;
     }
-
     #art {
       position: fixed;
       inset: 0;
@@ -31,19 +27,23 @@
     }
   </style>
 </head>
-
 <body>
   <img id="art" src="Artboard.png" alt="Display Image" />
-
   <script>
     const refreshInterval = 10000;
+    const hardReloadInterval = 1000; // 
 
     function refreshImage() {
       const img = document.getElementById("art");
       img.src = "Artboard.png?ts=" + Date.now();
     }
 
+    function hardReload() {
+      location.reload(true);
+    }
+
     setInterval(refreshImage, refreshInterval);
+    setTimeout(hardReload, hardReloadInterval);
   </script>
 </body>
 </html>
